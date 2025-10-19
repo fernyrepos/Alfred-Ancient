@@ -91,6 +91,19 @@ namespace AlfredAncient
     [HarmonyPatch(typeof(SkillRecord), nameof(SkillRecord.Interval))]
     public static class SkillRecord_Interval_Patch
     {
-        public static bool Prefix() => Find.Storyteller.TryGetComp<StorytellerComp_NoSkilLDecay>() == null;
+        public static bool Prefix()
+        {
+            if (Find.Storyteller?.def == DefsOf.AlfredAncient_AlfredAncient)
+            {
+                return false;
+            }
+            return true;
+        }
+    }
+    
+    [DefOf]
+    public static class DefsOf
+    {
+        public static StorytellerDef AlfredAncient_AlfredAncient;
     }
 }
